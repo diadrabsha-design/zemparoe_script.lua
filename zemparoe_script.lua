@@ -1012,7 +1012,10 @@ SearchInput:GetPropertyChangedSignal("Text"):Connect(function()
     end)
 end)
 
+local menuCounter = 0
 local function createMenu(menuIndex, menuName)
+    menuCounter = menuCounter + 1
+    local thisIdx = menuCounter
     local page = Instance.new("ScrollingFrame")
     page.Name = menuName
     page.Size = UDim2.fromScale(1,1); page.BackgroundTransparency = 1
@@ -1024,7 +1027,7 @@ local function createMenu(menuIndex, menuName)
 
     local btn = Instance.new("TextButton")
     btn.Size = UDim2.fromOffset(SIDEBAR_W-20,42)
-    btn.Position = UDim2.fromOffset(6, (#Pages-1)*48+6)
+    btn.Position = UDim2.fromOffset(6, (thisIdx-1)*48+6)
     btn.BackgroundColor3 = Color3.fromRGB(15,8,10); btn.BackgroundTransparency = 0.4
     btn.Text = ""; btn.AutoButtonColor = false; btn.ZIndex = 4
     btn.Parent = SidebarScroll
@@ -1073,7 +1076,7 @@ local function createMenu(menuIndex, menuName)
         page.Visible = true; CurrentPage = page; buildPage(page)
     end
 
-    SidebarScroll.CanvasSize = UDim2.new(0,0,0,#Pages*48+16)
+    SidebarScroll.CanvasSize = UDim2.new(0,0,0,thisIdx*48+16)
     return page
 end
 
