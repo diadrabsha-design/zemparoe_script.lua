@@ -1070,18 +1070,14 @@ local function createMenu(menuIndex, menuName)
         showPage(page)
     end)
 
-    if not SelectedSidebar then
-        SelectedSidebar = btn; btn.BackgroundTransparency = 0
-        s.Color = C.RedGlow; s.Transparency = 0
-        page.Visible = true; CurrentPage = page; buildPage(page)
-    end
 
     SidebarScroll.CanvasSize = UDim2.new(0,0,0,thisIdx*48+16)
-    return page
+    return page, btn
 end
 
 --// بناء القوائم
 local builtMenus, builtBtns = 0, 0
+local firstPage, firstBtn = nil, nil
 for m = 1, 20 do
     local menu = CONFIG[m]
     if menu and not isPH(menu.name) then
@@ -1095,7 +1091,12 @@ for m = 1, 20 do
 
         if #validButtons > 0 then
             builtMenus = builtMenus + 1
-            local page = createMenu(m, menu.name)
+            local page, sideBtn = createMenu(m, menu.name)
+
+if not firstPage then
+    firstPage = page
+    firstBtn = sideBtn
+end
 
             for _, entry in ipairs(validButtons) do
                 local name = entry.data[1]
@@ -1111,7 +1112,16 @@ for m = 1, 20 do
         end
     end
 end
-
+--// اختيار أول قائمة (بعد بناء كل الأزرار)
+if firstPage then
+    SelectedSidebar = firstBtn
+    firstBtn.BackgroundTransparency = 0
+    local fSt = firstBtn:FindFirstChildOfClass("UIStroke")
+    if fSt then fSt.Color = C.RedGlow; fSt.Transparency = 0 end
+    firstPage.Visible = true
+    CurrentPage = firstPage
+    buildPage(firstPage)
+end
 --// فتح/إغلاق
 local function computeScale()
     local vp = workspace.CurrentCamera.ViewportSize
