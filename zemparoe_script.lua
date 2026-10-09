@@ -25,7 +25,7 @@ local CONFIG = {
 --║ قائمة 1                                                ║
 --╚════════════════════════════════════════════════════════╝
 [1] = { name = "عام", btns = {
-    [1]  = { "Aim Bot", "https://raw.githubusercontent.com/diadrabsha-design/aimbot.lua/3810d75e53deac6d5341884ff8b4cb68148482cf/aimbot.lua" },
+    [1]  = { "Aim Bot", "https://raw.githubusercontent.com/diadrabsha-design/aimbot.lua/refs/heads/main/aimbot.lua" },
     [2]  = { "[حط اسم الزر 2]", "[حط الرابط هنا]" },
     [3]  = { "[حط اسم الزر 3]", "[حط الرابط هنا]" },
     [4]  = { "[حط اسم الزر 4]", "[حط الرابط هنا]" },
